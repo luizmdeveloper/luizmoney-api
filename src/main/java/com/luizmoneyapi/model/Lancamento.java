@@ -41,11 +41,13 @@ public class Lancamento {
 	@Enumerated(EnumType.STRING)
 	@Column(name="tipo")
 	private TipoDespesa tipoDespesa;
-		
+	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="codigo_categoria")
 	private Categoria categoria;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="codigo_pessoa")
 	private Pessoa pessoa;

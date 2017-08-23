@@ -78,7 +78,13 @@
 			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
 		
-		
+		<!-- Exeção vai ser trada de uma melhor forma -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.4</version>
+		</dependency>
+				
 	</dependencies>
 
 	<build>
