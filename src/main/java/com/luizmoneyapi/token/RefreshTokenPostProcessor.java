@@ -19,10 +19,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @ControllerAdvice
 public class RefreshTokenPostProcessor implements ResponseBodyAdvice<OAuth2AccessToken> {
 	
+	private static final String POT_ACCESS_TOKEN = "postAccessToken";
 	
 	@Override
 	public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-		return returnType.getMethod().getName().equals("postAccessToken");
+		return returnType.getMethod().getName().equals(POT_ACCESS_TOKEN);
 	}
 
 	@Override
