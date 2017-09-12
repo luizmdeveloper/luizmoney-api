@@ -11,15 +11,20 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import com.luizmoneyapi.config.property.LuizMoneyApiProperty;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CrosFilter implements Filter{
 	
-	private static final String PERMITIR_ORIGEM = "http://localhost:8000"; // TODO : Alterar url para produção ser uma outra
+	@Autowired
+	private LuizMoneyApiProperty luizMoneyApiProperty;
+	
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
@@ -28,10 +33,10 @@ public class CrosFilter implements Filter{
 		HttpServletRequest  request= (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 		
-		response.setHeader("Access-Control-Allow-Origin", PERMITIR_ORIGEM);
+		response.setHeader("Access-Control-Allow-Origin", luizMoneyApiProperty.getSeguranca().getOrgiemPermitida());
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		
-		if ("OPTIONS".equals(request.getMethod()) && PERMITIR_ORIGEM.equals(request.getHeader("origin"))){
+		if ("OPTIONS".equals(request.getMethod()) && luizMoneyApiProperty.getSeguranca().getOrgiemPermitida().equals(request.getHeader("origin"))){
 			response.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, DELETE");
 			response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
 			response.setHeader("Access-Control-Max-Age", "3600");

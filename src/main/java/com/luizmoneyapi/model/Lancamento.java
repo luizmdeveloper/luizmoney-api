@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "lancamentos")
 public class Lancamento {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
