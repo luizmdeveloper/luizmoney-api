@@ -38,12 +38,15 @@ public class LancamentoService {
 
 	public Lancamento atualizar(Long codigo, Lancamento lancamento) {
 		Lancamento lancamentoSalvo = buscarLancamentoPorCodigo(lancamento.getCodigo());
+
+		buscarPessoaPorCodigo(lancamentoSalvo);
 		
 		return lancamentoSalvo;
 	}
 	
 	public Lancamento buscarLancamentoPorCodigo(Long codigo) {
 		Lancamento lancamentoSalvo = lancamentoRepository.findOne(codigo);
+
 		if (lancamentoSalvo == null) {
 			throw new EmptyResultDataAccessException(1);
 		}
