@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.luizmoneyapi.service.exception.LancamentoInexistente;
+import com.luizmoneyapi.service.exception.PessoaInexistenteOuInativaException;
+
 @ControllerAdvice
 public class LuizMoneyExceptionHandeler extends ResponseEntityExceptionHandler {
 	
@@ -37,6 +40,24 @@ public class LuizMoneyExceptionHandeler extends ResponseEntityExceptionHandler {
 		String mensagemDesenvolvedor =  ex.getCause() != null ? ex.getCause().toString() : ex.toString();
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
 		return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
+	}
+	
+	@ExceptionHandler({PessoaInexistenteOuInativaException.class})
+	public ResponseEntity<Object> handlePessoaInexistenOuInativaException(PessoaInexistenteOuInativaException ex, WebRequest request){
+		String mensagemUsuario = messageSource.getMessage("mensagem.pessoa-inexistente-ou-inativo", null, request.getLocale());
+		String mensagemDesenvolvedor =  ex.toString();
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+		
+		return ResponseEntity.badRequest().body(erros);
+	}
+	
+	@ExceptionHandler({LancamentoInexistente.class})
+	public ResponseEntity<Object> handleLancamentoInexistenteException(LancamentoInexistente ex, WebRequest request){
+		String mensagemUsuario = messageSource.getMessage("mensagem.lancamento-inexistente", null, request.getLocale());
+		String mensagemDesenvolvedor =  ex.toString();
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+		
+		return ResponseEntity.badRequest().body(erros);
 	}
 	
 	@Override
@@ -98,6 +119,5 @@ public class LuizMoneyExceptionHandeler extends ResponseEntityExceptionHandler {
 			return mensagemDesenvolvedor;
 		}
 	}
-	
 	
 }

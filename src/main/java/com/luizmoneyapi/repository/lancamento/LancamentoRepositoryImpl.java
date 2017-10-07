@@ -107,6 +107,4 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
 		
 		return entityManager.createQuery(criteria).getSingleResult(); 
 	}
-
-
 }
