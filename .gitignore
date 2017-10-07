@@ -6,6 +6,7 @@
 .settings
 .springBeans
 src/main/java/test
+targert/
 
 ### Intellij IDEA ###
 .idea
