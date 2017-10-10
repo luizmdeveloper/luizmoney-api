@@ -77,6 +77,7 @@ public class LancamentoResource {
 	}
 	
 	@PutMapping("/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_LANCAMENTO') and #oauth2.hasScope('write')")
 	public ResponseEntity<Lancamento> atuaizar(@PathVariable Long codigo, @Valid @RequestBody Lancamento lancamento){		
 		Lancamento lancamentoSalvo = lancamentoService.atualizar(codigo, lancamento);
 
