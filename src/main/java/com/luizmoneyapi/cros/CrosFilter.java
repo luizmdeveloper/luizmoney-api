@@ -33,13 +33,15 @@ public class CrosFilter implements Filter{
 		HttpServletRequest  request= (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 		
-		response.setHeader("Access-Control-Allow-Origin", luizMoneyApiProperty.getSeguranca().getOrgiemPermitida());
+		response.setHeader("Access-Control-Allow-Origin", luizMoneyApiProperty.getOriginPermitida());
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		
-		if ("OPTIONS".equals(request.getMethod()) && luizMoneyApiProperty.getSeguranca().getOrgiemPermitida().equals(request.getHeader("origin"))){
+		if ("OPTIONS".equals(request.getMethod()) && luizMoneyApiProperty.getOriginPermitida().equals(request.getHeader("origin"))){
 			response.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, DELETE");
 			response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
 			response.setHeader("Access-Control-Max-Age", "3600");
+			
+			response.setStatus(HttpServletResponse.SC_OK);
 		}else {
 			chain.doFilter(req, resp);
 		}		

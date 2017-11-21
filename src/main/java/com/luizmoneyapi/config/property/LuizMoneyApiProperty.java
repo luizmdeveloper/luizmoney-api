@@ -7,15 +7,26 @@ public class LuizMoneyApiProperty {
 
 	private final Seguranca seguranca = new Seguranca();
 	
+	private String originPermitida = "http://localhost:8000";
+	
 	public Seguranca getSeguranca() {
 		return seguranca;
 	}
+	
+	public String getOriginPermitida() {
+		return originPermitida;
+	}
+
+
+	public void setOriginPermitida(String originPermitida) {
+		this.originPermitida = originPermitida;
+	}
+
 
 	public static class  Seguranca {
 		
 		private boolean enabledHttps;
-		
-		private String orgiemPermitida = "http://localhost:8000";
+				
 
 		public boolean isEnabledHttps() {
 			return enabledHttps;
@@ -24,13 +35,6 @@ public class LuizMoneyApiProperty {
 		public void setEnabledHttps(boolean enabledHttps) {
 			this.enabledHttps = enabledHttps;
 		}
-
-		public String getOrgiemPermitida() {
-			return orgiemPermitida;
-		}
-
-		public void setOrgiemPermitida(String orgiemPermitida) {
-			this.orgiemPermitida = orgiemPermitida;
-		}		
+		
 	}
 }
