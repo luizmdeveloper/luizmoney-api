@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class ResumoLancamento {
 
 	private Long codigo;
-	private String decricao;
+	private String descricao;
 	private LocalDate dataVencimento;
 	private LocalDate dataPagamento;
 	private BigDecimal valor;
@@ -14,10 +14,10 @@ public class ResumoLancamento {
 	private String categoria;
 	private String pessoa;
 	
-	public ResumoLancamento(Long codigo, String decricao, LocalDate dataVencimento, LocalDate dataPagamento,
+	public ResumoLancamento(Long codigo, String descricao, LocalDate dataVencimento, LocalDate dataPagamento,
 			BigDecimal valor, TipoDespesa tipo, String categoria, String pessoa) {
 		this.codigo = codigo;
-		this.decricao = decricao;
+		this.descricao = descricao;
 		this.dataVencimento = dataVencimento;
 		this.dataPagamento = dataPagamento;
 		this.valor = valor;
@@ -34,12 +34,12 @@ public class ResumoLancamento {
 		this.codigo = codigo;
 	}
 
-	public String getDecricao() {
-		return decricao;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDecricao(String decricao) {
-		this.decricao = decricao;
+	public void setDescricao(String decricao) {
+		this.descricao = decricao;
 	}
 
 	public LocalDate getDataVencimento() {
