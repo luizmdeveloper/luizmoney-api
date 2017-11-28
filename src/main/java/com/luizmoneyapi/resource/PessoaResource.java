@@ -53,7 +53,7 @@ public class PessoaResource {
 	}
 	
 	@PostMapping
-	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('read')")
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('write')")
 	public ResponseEntity<Pessoa> cadastrar(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response){
 		Pessoa pessoaSalva = pessoaRepository.save(pessoa);
 		
@@ -70,6 +70,7 @@ public class PessoaResource {
 	}
 	
 	@PutMapping("/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('write')")
 	public ResponseEntity<Pessoa> atuaizar(@PathVariable Long codigo, @Valid @RequestBody Pessoa pessoa){		
 		Pessoa pessoaSalva = pessoaService.atualizar(codigo, pessoa);
 
@@ -77,9 +78,9 @@ public class PessoaResource {
 	}
 	
 	@PutMapping("/{codigo}/ativo")
-	public ResponseEntity<Pessoa> atuaizarPropriedadeAtivo(@PathVariable Long codigo, @RequestBody Boolean ativo){		
-		Pessoa pessoaSalva = pessoaService.atualizarProriedadeAtivo(codigo, ativo);
-
-		return ResponseEntity.ok(pessoaRepository.save(pessoaSalva));
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('write')")
+	public void atuaizarPropriedadeAtivo(@PathVariable Long codigo, @RequestBody Boolean ativo){		
+		pessoaService.atualizarProriedadeAtivo(codigo, ativo);
 	}
 }
