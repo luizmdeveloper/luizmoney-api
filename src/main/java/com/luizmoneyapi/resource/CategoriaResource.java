@@ -47,12 +47,6 @@ public class CategoriaResource {
 		return categoriaRepository.filtrar(categoriaFilter, pageable);
 	}
 	
-	@GetMapping("/todos")
-	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
-	public List<Categoria> buscarTodos(){
-		return categoriaRepository.findAll();
-	}
-	
 	@GetMapping("/{codigo}")
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
 	public ResponseEntity<Categoria> buscarPorCodigo(@PathVariable long codigo){	
