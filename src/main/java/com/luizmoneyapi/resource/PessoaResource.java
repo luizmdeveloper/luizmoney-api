@@ -44,7 +44,7 @@ public class PessoaResource {
 	public Page<Pessoa> buscar(PessoaFilter pessoaFilter, Pageable pageable){
 		return pessoaRepository.filtrar(pessoaFilter, pageable);
 	}
-	
+		
 	@GetMapping("/{codigo}")
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA') and #oauth2.hasScope('read')")
 	public ResponseEntity<Pessoa> buscarPor(@PathVariable long codigo){

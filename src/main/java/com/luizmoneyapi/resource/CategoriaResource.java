@@ -7,6 +7,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.luizmoneyapi.event.RecursoCriadoEvent;
 import com.luizmoneyapi.model.Categoria;
 import com.luizmoneyapi.repository.CategoriaRepository;
+import com.luizmoneyapi.repository.filter.CategoriaFilter;
 import com.luizmoneyapi.service.CategoriaService;
 
 @RestController
@@ -40,7 +43,13 @@ public class CategoriaResource {
 	
 	@GetMapping
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
-	public List<Categoria> buscar(){
+	public Page<Categoria> buscar(CategoriaFilter categoriaFilter, Pageable pageable){
+		return categoriaRepository.filtrar(categoriaFilter, pageable);
+	}
+	
+	@GetMapping("/todos")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
+	public List<Categoria> buscarTodos(){
 		return categoriaRepository.findAll();
 	}
 	
