@@ -44,7 +44,7 @@ public class CrosFilter implements Filter{
 			response.setStatus(HttpServletResponse.SC_OK);
 		}else {
 			chain.doFilter(req, resp);
-		}		
+		}
 	}
 	
 	@Override

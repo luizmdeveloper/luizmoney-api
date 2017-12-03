@@ -1,7 +1,5 @@
 package com.luizmoneyapi.resource;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -45,7 +43,7 @@ public class CategoriaResource {
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
 	public Page<Categoria> buscar(CategoriaFilter categoriaFilter, Pageable pageable){
 		return categoriaRepository.filtrar(categoriaFilter, pageable);
-	}
+	}	
 	
 	@GetMapping("/{codigo}")
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
@@ -55,16 +53,17 @@ public class CategoriaResource {
 	}
 	
 	@PostMapping
-	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA') and #oauth2.hasScope('write')")
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_CATEGORIA') and #oauth2.hasScope('write')")
 	public ResponseEntity<Categoria> gravar(@Valid @RequestBody Categoria categoria, HttpServletResponse response){
 		Categoria categoriaSalva =  categoriaRepository.save(categoria);
-		
+
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, categoria.getCodigo()));
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(categoriaSalva);
 	}
 	
 	@PutMapping("/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_CATEGORIA') and #oauth2.hasScope('write')")
 	public ResponseEntity<Categoria> atualizar(@PathVariable long codigo, @Valid @RequestBody Categoria Categoria){
 		Categoria categoria = categoriaService.atualizar(codigo, Categoria);
 		return ResponseEntity.ok().body(categoria);
